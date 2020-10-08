@@ -1,17 +1,5 @@
 public class Caesarian{
     
-    private class Key{
-        private int key = 0;
-        private boolean isLeft = false;
-
-    }
-    private Key key;
-    public void setKey(int key, boolean isLeft){
-        this.key.isLeft = isLeft;
-        this.key.key = key;
-
-        
-    }
     public static StringBuffer rightCipher(String message, int key){
         StringBuffer result = new StringBuffer();
         char current;
@@ -31,13 +19,39 @@ public class Caesarian{
         }
         return result;
     }
-    /*public static StringBuffer leftCipher(String message){
+    public static StringBuffer leftCipher(String message, int key){
+        StringBuffer result = new StringBuffer();
+        char current;
         for(int i = 0; i < message.length(); i++){
-
+            current = message.charAt(i);
+            if(current < '[' && current > '@'){
+                int temp = (int)(current - key - 65) %26;
+                if(temp < 0){
+                    temp = 91 + temp;
+                }
+                else
+                    temp = temp + 65;
+                result.append((char)(temp));
+            }
+            else if(current > '`' && current < '{'){
+                int temp = ((int)current - key -97) % 26;
+                if(temp < 0){
+                    temp = 123 + temp;
+                }
+                else
+                    temp = temp + 97;
+                result.append((char)temp);
+                
+            }
+            else if(current == ' '){
+                result.append(current);
+            }
         }
+        return result;
 
-    }*/
+    }
     public static void main(String args[]){
-        System.out.println(Caesarian.rightCipher("This is a test", 4));
+        System.out.println(Caesarian.rightCipher("This Is A Test", 4));
+        System.out.println(Caesarian.leftCipher("This Is A Test", 4));
     }
 }
